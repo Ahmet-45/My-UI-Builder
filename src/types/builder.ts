@@ -1,0 +1,23 @@
+// src/types/builder.ts
+export const NODE_REGISTRY = {
+  container: { tag: 'div', acceptsChildren: true},
+  button: { tag: 'button', acceptsChildren: false},
+} as const;
+
+export type NodeType = keyof typeof NODE_REGISTRY;
+
+export interface NodeProps {
+  backgroundColor?: string;
+  width?: number;
+  height?: number;
+  borderRadius?: number;
+  padding?: number;
+  margin?: number;
+}
+
+export interface UINode {
+  id: string;
+  type: NodeType;
+  props?: NodeProps;
+  children?: UINode[];
+}
