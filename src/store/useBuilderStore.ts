@@ -2,12 +2,16 @@
 import { create } from 'zustand';
 import { UINode, NodeProps, NodeType, NODE_REGISTRY } from '../types/builder';
 import { updateNodeProps, insertNode, findNodeById, findParentOf, insertAfter } from '../utils/treeHelpers';
-
+import { removeNode } from '../utils/treeHelpers';
 
 const initialTree: UINode = {
   id: "root-1",
   type: "container",
   props: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 8,
+    padding: 16,
     backgroundColor: 'red',
     width: 500,        
   },
@@ -29,6 +33,9 @@ interface BuilderStore {
   selectNode: (id: string | null) => void;
   updateNode: (newProps: Partial<NodeProps>) => void;
   addNode: (nodeType: NodeType) => void;
+  moveNode: (draggedId: string, targetId: string) => void;
+  deleteNode: () => void;
+  resetTree: () => void;
 }
 
 export const useBuilderStore = create<BuilderStore>((set, get) => ({
@@ -71,6 +78,37 @@ export const useBuilderStore = create<BuilderStore>((set, get) => ({
     }
 
     set({ tree: newTree });
+  },
+  moveNode: (draggedId, targetId) => {
+    const { tree } = get();
+
+    if(draggedId === targetId) return;
+    const dragged = findNodeById(tree, draggedId);
+    if (!dragged) return;
+
+    if(findNodeById(dragged, targetId)) return;
+
+    if(draggedId === tree.id) return;
+
+    const withoutDragged = removeNode(tree, draggedId);
+    const target = findNodeById(withoutDragged, targetId);
+    if(!target) return;
+
+    const newTree = NODE_REGISTRY[target.type].acceptsChildren
+      ? insertNode(withoutDragged, targetId, dragged)
+      : insertAfter(withoutDragged, targetId, dragged);
+    
+    set({ tree: newTree });
+  },
+  deleteNode: () => {
+    const { tree, selectedNodeId } = get();
+    if (!selectedNodeId) return;
+    if (selectedNodeId === tree.id) return;
+    const newTree = removeNode(tree, selectedNodeId);
+    set({ tree: newTree, selectedNodeId: null });
+  },
+  resetTree: () => {
+    set({ tree: initialTree, selectedNodeId: null });
   },
 }));
 

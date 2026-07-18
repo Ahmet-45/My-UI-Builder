@@ -1,12 +1,15 @@
 // src/utils/htmlExporter.ts
 import { UINode, NodeProps } from '../types/builder';
 
+const UNITLESS = new Set(['flexShrink', 'flexGrow', 'zIndex', 'opacity', 'fontWeight']);
+
+
 function parsePropsToStyle(props: NodeProps): string {
   const styles: string[] = [];
   for (const [key, value] of Object.entries(props)) {
     if (value !== undefined && value !== null) {
       const cssKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
-      if (typeof value === 'number') {
+      if (typeof value === 'number' && !UNITLESS.has(key)) {
         styles.push(`${cssKey}: ${value}px;`);
       } else {
         styles.push(`${cssKey}: ${value};`);

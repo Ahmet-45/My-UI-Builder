@@ -13,6 +13,12 @@ export interface NodeProps {
   borderRadius?: number;
   padding?: number;
   margin?: number;
+  display?: 'flex' | 'block';
+  flexDirection?: 'row' | 'column';
+  justifyContent?: 'flex-start' | 'center' | 'flex-end' | 'space-between';
+  alignItems?: 'flex-start' | 'center' | 'flex-end';
+  gap?: number;
+  flexShrink?: number;
 }
 
 export interface UINode {

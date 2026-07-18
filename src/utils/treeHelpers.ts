@@ -116,3 +116,25 @@ export function findParentOf(root: UINode, childId: string): UINode | null {
   }
   return null;
 }
+
+export function removeNode(node: UINode, targetId: string): UINode {
+  if(node.children){
+    const exists = node.children.some(child => child.id === targetId);
+    if (exists) {
+      return {
+        ...node,
+        children: node.children.filter(child => child.id !== targetId),
+      };
+    }
+  }
+
+  if(!node.children || node.children.length === 0) return node;
+
+  let changed = false;
+  const nextChildren = node.children.map(child => {
+    const nextChild = removeNode(child, targetId);
+    if (nextChild !== child) changed = true;
+    return nextChild;
+  });
+  return changed ? { ...node, children: nextChildren } : node;
+}
