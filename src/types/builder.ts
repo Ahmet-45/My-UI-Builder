@@ -20,6 +20,7 @@ export interface NodeProps {
   gap?: number;
   flexShrink?: number | string;
   overflow?: 'visible' | 'hidden' | 'auto' | 'scroll';
+  text?: string;
 }
 
 export interface UINode {

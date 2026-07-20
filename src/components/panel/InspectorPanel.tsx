@@ -17,6 +17,7 @@ const FIELDS = [
   { key: 'gap',             label: 'Gap',             type: 'number' },
   { key: 'flexShrink',      label: 'Buzulme (shrink)', type: 'select', options: ['0', '1']},
   { key: 'overflow', label: 'Tasma(overflow)', type: 'select', options: ['visible', 'hidden', 'auto', 'scroll']},
+  { key: 'text',            label: 'Metin',           type: 'text'  },
 ] as const;
 
 export const InspectorPanel = () => {
@@ -50,7 +51,7 @@ export const InspectorPanel = () => {
             <input 
               type={field.type}
               style={{ border: '1px solid #ccc', padding: 4, width: '100%', boxSizing: 'border-box'}}
-              value={selectedNode.props?.[field.key] ?? (field.type === 'number' ? '' : '#ffffff')}
+              value={selectedNode.props?.[field.key] ?? (field.type === 'color' ? 'ffffff' : '')}
               onChange={(e) => 
                 updateNode({
                   [field.key]: field.type === 'number' ? parseInt(e.target.value) || 0 : e.target.value

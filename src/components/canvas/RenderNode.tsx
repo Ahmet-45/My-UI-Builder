@@ -73,7 +73,7 @@ export const RenderNode = ({ node }: { node: UINode }) => {
           outlineOffset: -2,
         }}
       >
-        Tikla
+        {node.props?.text ?? 'Buton'}
       </button>
     );
   }
