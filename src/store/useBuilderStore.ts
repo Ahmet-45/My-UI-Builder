@@ -36,6 +36,8 @@ interface BuilderStore {
   moveNode: (draggedId: string, targetId: string) => void;
   deleteNode: () => void;
   resetTree: () => void;
+  dragOverId: string | null;
+  setDragOverId: (id: string | null) => void;
 }
 
 export const useBuilderStore = create<BuilderStore>((set, get) => ({
@@ -110,6 +112,8 @@ export const useBuilderStore = create<BuilderStore>((set, get) => ({
   resetTree: () => {
     set({ tree: initialTree, selectedNodeId: null });
   },
+  dragOverId: null,
+  setDragOverId: (id) => set({ dragOverId: id }),
 }));
 
 
