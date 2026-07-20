@@ -18,7 +18,8 @@ export interface NodeProps {
   justifyContent?: 'flex-start' | 'center' | 'flex-end' | 'space-between';
   alignItems?: 'flex-start' | 'center' | 'flex-end';
   gap?: number;
-  flexShrink?: number;
+  flexShrink?: number | string;
+  overflow?: 'visible' | 'hidden' | 'auto' | 'scroll';
 }
 
 export interface UINode {

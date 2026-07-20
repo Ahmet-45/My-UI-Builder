@@ -15,7 +15,8 @@ const FIELDS = [
   { key: 'justifyContent',  label: 'Yatay Hizala', type: 'select', options: ['flex-start', 'center', 'flex-end', 'space-between'] },
   { key: 'alignItems',      label: 'Dikey Hizala',     type: 'select', options:['flex-start', 'center', 'flex-end'] },
   { key: 'gap',             label: 'Gap',             type: 'number' },
-  { key: 'flexShrink',      label: 'Buzulme (shrink)', type: 'number'},
+  { key: 'flexShrink',      label: 'Buzulme (shrink)', type: 'select', options: ['0', '1']},
+  { key: 'overflow', label: 'Tasma(overflow)', type: 'select', options: ['visible', 'hidden', 'auto', 'scroll']},
 ] as const;
 
 export const InspectorPanel = () => {
