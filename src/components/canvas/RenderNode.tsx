@@ -69,11 +69,12 @@ export const RenderNode = ({ node }: { node: UINode }) => {
         {...dndHandlers}
         style={{
           ...parseStyles(node.props || {}),
+          minHeight:20,
           outline,
           outlineOffset: -2,
         }}
       >
-        {node.props?.text ?? 'Buton'}
+        {node.props?.text}
       </button>
     );
   }
@@ -84,11 +85,12 @@ export const RenderNode = ({ node }: { node: UINode }) => {
         {...dndHandlers}
         style={{
           ...parseStyles(node.props || {}),
+          minHeight: 20,
           outline,
           outlineOffset: -2,
         }}
       >
-        {node.props?.text ?? 'Metin'}
+        {node.props?.text}
       </span>  
     );
   }

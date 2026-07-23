@@ -65,7 +65,7 @@ export const useBuilderStore = create<BuilderStore>((set, get) => ({
     const newNode: UINode = {
       id: crypto.randomUUID(),
       type: nodeType,
-      props: {},
+      props: {...NODE_REGISTRY[nodeType].defaultProps },
       children: [],
     };
     let newTree: UINode;

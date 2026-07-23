@@ -62,12 +62,15 @@ export const InspectorPanel = () => {
               <input 
                 type={field.type}
                 style={{ border: '1px solid #ccc', padding: 4, width: '100%', boxSizing: 'border-box'}}
-                value={selectedNode.props?.[field.key] ?? (field.type === 'color' ? 'ffffff' : '')}
-                onChange={(e) => 
+                value={selectedNode.props?.[field.key] ?? (field.type === 'color' ? '#ffffff' : '')}
+                onChange={(e) => {
+                  const raw = e.target.value;                  
                   updateNode({
-                    [field.key]: field.type === 'number' ? parseInt(e.target.value) || 0 : e.target.value
-                  })
-                }
+                    [field.key]: field.type === 'number' 
+                    ? (raw === '' ? undefined : parseInt(raw))
+                    : raw
+                  });
+                }}
               />  
             )} 
           </div>

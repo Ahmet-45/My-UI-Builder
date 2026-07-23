@@ -1,7 +1,7 @@
 // src/components/panel/leftPanel.tsx
 import { useBuilderStore } from '../../store/useBuilderStore';
 
-export const LeftPanel = () => {
+export const LeftPanel = ({ onExportClick }: { onExportClick: () => void }) => {
   const addNode = useBuilderStore(state => state.addNode);
   const deleteNode = useBuilderStore(s => s.deleteNode);
   const resetTree = useBuilderStore(s => s.resetTree);
@@ -9,7 +9,6 @@ export const LeftPanel = () => {
   const rootId = useBuilderStore(s => s.tree.id);
 
   const canDelete = selectedNodeId !== null && selectedNodeId !== rootId;
-
   return (
     <div style={{ width: '200px', padding: 16, backgroundColor: '#f4f4f4' }}>
       <h3>Arac Kutusu</h3>
@@ -23,6 +22,7 @@ export const LeftPanel = () => {
         Sil
       </button>
       <button onClick={resetTree}>Reset</button>
+      <button onClick={onExportClick}>Export</button>
     </div>
   );
 };

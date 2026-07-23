@@ -26,7 +26,7 @@ export function exportToHTML(node: UINode): string {
   const styleAttribute = inlineStyle ? ` style="${inlineStyle}"`: "";
 
   if (selfClosing) {
-    const placeholder = node.props?.text ? `placeholder="${node.props.text}"` : "";
+    const placeholder = node.props?.text ? ` placeholder="${node.props.text}"` : "";
     return `<${tag}${styleAttribute}${placeholder} />`;
   }
   let childrenHTML = "";
@@ -35,4 +35,24 @@ export function exportToHTML(node: UINode): string {
   }
   const content = node.props?.text ?? childrenHTML;
   return `<${tag}${styleAttribute}>${content}</${tag}>`;
+}
+
+
+export function exportFullPage(tree: UINode): string {
+  const body = exportToHTML(tree);
+  return  `<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Export</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+  </style>
+</head>
+<body>
+${body}
+</body>
+</html>`;
 }
