@@ -78,5 +78,20 @@ export const RenderNode = ({ node }: { node: UINode }) => {
     );
   }
 
+  if(node.type === "text") {
+    return (
+      <span
+        {...dndHandlers}
+        style={{
+          ...parseStyles(node.props || {}),
+          outline,
+          outlineOffset: -2,
+        }}
+      >
+        {node.props?.text ?? 'Metin'}
+      </span>  
+    );
+  }
+
   return null;
 };

@@ -2,6 +2,7 @@
 export const NODE_REGISTRY = {
   container: { tag: 'div', acceptsChildren: true},
   button: { tag: 'button', acceptsChildren: false},
+  text: { tag: 'span', acceptsChildren: false},
 } as const;
 
 export type NodeType = keyof typeof NODE_REGISTRY;
@@ -21,6 +22,8 @@ export interface NodeProps {
   flexShrink?: number | string;
   overflow?: 'visible' | 'hidden' | 'auto' | 'scroll';
   text?: string;
+  color?: string;
+  fontSize?: number;
 }
 
 export interface UINode {

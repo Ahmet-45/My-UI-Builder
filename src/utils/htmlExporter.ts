@@ -1,5 +1,5 @@
 // src/utils/htmlExporter.ts
-import { UINode, NodeProps } from '../types/builder';
+import { UINode, NodeProps, NODE_REGISTRY } from '../types/builder';
 
 const UNITLESS = new Set(['flexShrink', 'flexGrow', 'zIndex', 'opacity', 'fontWeight']);
 const NON_STYLE = new Set(['text']);
@@ -21,7 +21,7 @@ function parsePropsToStyle(props: NodeProps): string {
 }
 
 export function exportToHTML(node: UINode): string {
-  const tag = node.type === "container" ? "div" : "button";
+  const tag = NODE_REGISTRY[node.type].tag;
   const inlineStyle = parsePropsToStyle(node.props || {});
   const styleAttribute = inlineStyle ? ` style="${inlineStyle}"`: "";
 
