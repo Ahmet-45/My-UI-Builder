@@ -4,6 +4,20 @@ import { UINode, NodeProps, NodeType, NODE_REGISTRY } from '../types/builder';
 import { updateNodeProps, insertNode, findNodeById, findParentOf, insertAfter } from '../utils/treeHelpers';
 import { removeNode } from '../utils/treeHelpers';
 
+function readSaves(): Record<string, UINode> {
+  const raw = localStorage.getItem(SAVES_KEY);
+  if (!raw) return {};
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return {};
+  }
+}
+
+function writeSaves(saves: Record<string, UINode>) {
+  localStorage.setItem(SAVES_KEY, JSON.stringify(saves));
+}
+
 const initialTree: UINode = {
   id: "root-1",
   type: "container",
@@ -27,6 +41,7 @@ const initialTree: UINode = {
   ]    
 };
 
+const SAVES_KEY = 'ui-builder-saves';
 interface BuilderStore {
   tree: UINode;
   selectedNodeId: string | null;
@@ -38,6 +53,10 @@ interface BuilderStore {
   resetTree: () => void;
   dragOverId: string | null;
   setDragOverId: (id: string | null) => void;
+  saveTree: (name: string) => void;
+  loadTree: (name: string) => boolean;
+  deleteSave: (name: string) => void;
+  listSaves: () => string[];
 }
 
 export const useBuilderStore = create<BuilderStore>((set, get) => ({
@@ -114,6 +133,26 @@ export const useBuilderStore = create<BuilderStore>((set, get) => ({
   },
   dragOverId: null,
   setDragOverId: (id) => set({ dragOverId: id }),
+  saveTree: (name) => {
+    const { tree } = get();
+    const raw = localStorage.getItem(SAVES_KEY);
+    const saves = raw ? JSON.parse(raw) : {};
+    saves[name] = tree;
+    writeSaves(saves);
+  },
+  loadTree: (name) => {
+    const saves = readSaves();
+    const tree = saves[name];
+    if (!tree) return false;
+    set({ tree, selectedNodeId: null });
+    return true;
+  },
+  listSaves: () => Object.keys(readSaves()),
+  deleteSave: (name) => {
+    const saves = readSaves();
+    delete saves[name];
+    writeSaves(saves);
+  },
 }));
 
 
