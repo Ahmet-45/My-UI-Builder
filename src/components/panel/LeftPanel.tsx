@@ -1,7 +1,7 @@
 // src/components/panel/leftPanel.tsx
 import { useBuilderStore } from '../../store/useBuilderStore';
 
-export const LeftPanel = ({ onExportClick }: { onExportClick: () => void }) => {
+export const LeftPanel = () => {
   const addNode = useBuilderStore(state => state.addNode);
   const deleteNode = useBuilderStore(s => s.deleteNode);
   const resetTree = useBuilderStore(s => s.resetTree);
@@ -22,7 +22,6 @@ export const LeftPanel = ({ onExportClick }: { onExportClick: () => void }) => {
         Sil
       </button>
       <button onClick={resetTree}>Reset</button>
-      <button onClick={onExportClick}>Export</button>
     </div>
   );
 };
