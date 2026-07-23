@@ -24,9 +24,9 @@ const FIELDS: readonly FieldDef[] = [
   { key: 'gap',             label: 'Gap',             type: 'number', only: ['container'] },
   { key: 'flexShrink',      label: 'Buzulme (shrink)', type: 'select', options: ['0', '1']},
   { key: 'overflow', label: 'Tasma(overflow)', type: 'select', options: ['visible', 'hidden', 'auto', 'scroll'], only: ['container']},
-  { key: 'text',            label: 'Metin',           type: 'text', only: ['button', 'text']  },
-  { key: 'color',           label: 'Yazı Rengi',      type: 'color', only: ['button', 'text'] },
-  { key: 'fontSize',        label: 'Yazı Boyutu',     type: 'number', only: ['button', 'text']},
+  { key: 'text',            label: 'Metin',           type: 'text', only: ['button', 'text', 'input']  },
+  { key: 'color',           label: 'Yazı Rengi',      type: 'color', only: ['button', 'text', 'input'] },
+  { key: 'fontSize',        label: 'Yazı Boyutu',     type: 'number', only: ['button', 'text', 'input']},
 ];
 
 export const InspectorPanel = () => {

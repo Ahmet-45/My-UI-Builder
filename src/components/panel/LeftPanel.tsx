@@ -16,6 +16,7 @@ export const LeftPanel = () => {
       <button onClick={() => addNode("container")}>Kutu Ekle</button>
       <button onClick={() => addNode("button")}>Buton Ekle</button>
       <button onClick={() => addNode("text")}>Metin Ekle</button>
+      <button onClick={() => addNode("input")}>Input Ekle</button>
       <hr style={{ margin: '12px 0' }} />
 
       <button onClick={deleteNode} disabled={!canDelete}>

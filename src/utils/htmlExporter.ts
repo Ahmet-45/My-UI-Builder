@@ -21,10 +21,14 @@ function parsePropsToStyle(props: NodeProps): string {
 }
 
 export function exportToHTML(node: UINode): string {
-  const tag = NODE_REGISTRY[node.type].tag;
+  const { tag, selfClosing } = NODE_REGISTRY[node.type];
   const inlineStyle = parsePropsToStyle(node.props || {});
   const styleAttribute = inlineStyle ? ` style="${inlineStyle}"`: "";
 
+  if (selfClosing) {
+    const placeholder = node.props?.text ? `placeholder="${node.props.text}"` : "";
+    return `<${tag}${styleAttribute}${placeholder} />`;
+  }
   let childrenHTML = "";
   if(node.children && node.children.length > 0){
     childrenHTML = node.children.map(child => exportToHTML(child)).join("");

@@ -93,5 +93,20 @@ export const RenderNode = ({ node }: { node: UINode }) => {
     );
   }
 
+  if(node.type === "input") {
+    return (
+      <input
+        {...dndHandlers}
+        placeholder={node.props?.text ?? 'Metin Girin'}
+        readOnly
+        style={{
+          ...parseStyles(node.props || {}),
+          outline,
+          outlineOffset: -2,
+        }}
+      />  
+    );
+  }
+
   return null;
 };

@@ -1,8 +1,9 @@
 // src/types/builder.ts
 export const NODE_REGISTRY = {
-  container: { tag: 'div', acceptsChildren: true},
-  button: { tag: 'button', acceptsChildren: false},
-  text: { tag: 'span', acceptsChildren: false},
+  container: { tag: 'div', acceptsChildren: true, selfClosing: false},
+  button: { tag: 'button', acceptsChildren: false, selfClosing: false},
+  text: { tag: 'span', acceptsChildren: false, selfClosing: false},
+  input: { tag: 'input', acceptsChildren: false, selfClosing: true},
 } as const;
 
 export type NodeType = keyof typeof NODE_REGISTRY;
