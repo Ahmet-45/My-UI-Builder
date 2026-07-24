@@ -46,7 +46,7 @@ interface BuilderStore {
   tree: UINode;
   selectedNodeId: string | null;
   selectNode: (id: string | null) => void;
-  updateNode: (newProps: Partial<NodeProps>) => void;
+  updateNode: (id: string, newProps: Partial<NodeProps>) => void;
   addNode: (nodeType: NodeType) => void;
   moveNode: (draggedId: string, targetId: string) => void;
   deleteNode: () => void;
@@ -67,10 +67,8 @@ export const useBuilderStore = create<BuilderStore>((set, get) => ({
   selectNode: (id) => {
     set(() => ({ selectedNodeId: id }))
   },
-  updateNode: (newProps) => {
-    const state = get();
-    if (!state.selectedNodeId) return;
-    const newTree = updateNodeProps(state.tree, state.selectedNodeId, newProps);
+  updateNode: (id, newProps) => {
+    const newTree = updateNodeProps(get().tree, id, newProps);
     set({ tree: newTree });
   },
   addNode: (nodeType: NodeType) => {

@@ -58,7 +58,7 @@ export const InspectorPanel = () => {
               <select 
                 style={{ border: '1px solid #ccc', padding: 4, width: '100%', boxSizing: 'border-box'}}
                 value={selectedNode.props?.[field.key] ?? ''}
-                onChange={(e) => updateNode({ [field.key]: e.target.value })}
+                onChange={(e) => updateNode(selectedNode.id, { [field.key]: e.target.value })}
               >
                 <option value="">-- sec --</option>
                 {field.options?.map((opt) => (
@@ -73,7 +73,7 @@ export const InspectorPanel = () => {
                   value={selectedNode.props?.[field.key] ?? (field.type === 'color' ? '#ffffff' : '')}
                   onChange={(e) => {
                     const raw = e.target.value;
-                    updateNode({
+                    updateNode(selectedNode.id, {
                       [field.key]: field.type === 'number'
                         ? (raw === '' ? undefined : parseInt(raw))
                         : raw
@@ -85,7 +85,7 @@ export const InspectorPanel = () => {
                   <UnitSelect
                     value={String(selectedNode.props?.[field.unitKey] ?? field.unitOptions[0])}
                     options={field.unitOptions}
-                    onChange={(unit) => updateNode({ [field.unitKey!]: unit })}
+                    onChange={(unit) => updateNode(selectedNode.id, { [field.unitKey!]: unit })}
                   />
                 )}
               </div>

@@ -26,6 +26,9 @@ export const NODE_REGISTRY = {
   },
 } as const;
 
+export const UNITLESS = new Set(['flexShrink', 'flexGrow', 'zIndex', 'opacity', 'fontWeight']);
+export const NON_STYLE = new Set(['text', 'widthUnit', 'heightUnit']);
+
 export type NodeType = keyof typeof NODE_REGISTRY;
 
 export interface NodeProps {

@@ -1,8 +1,6 @@
 // src/utils/styleParser.ts
-import { NodeProps } from "../types/builder";
+import { NodeProps, UNITLESS, NON_STYLE } from "../types/builder";
 
-const UNITLESS = new Set(['zIndex', 'opacity', 'flex', 'flexGrow', 'flexShrink', 'order', 'lineHeight']);
-const NON_STYLE = new Set(['text', 'widthUnit', 'heightUnit']);
 
 export const parseStyles = (rawProps: NodeProps) => {
   const parsed: Record<string, string | number> = {};
