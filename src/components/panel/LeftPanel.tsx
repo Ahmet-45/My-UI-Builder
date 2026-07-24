@@ -1,5 +1,6 @@
 // src/components/panel/leftPanel.tsx
 import { useBuilderStore } from '../../store/useBuilderStore';
+import { HeadingMenu } from '../ui/HeadingMenu';
 
 export const LeftPanel = () => {
   const addNode = useBuilderStore(state => state.addNode);
@@ -16,6 +17,7 @@ export const LeftPanel = () => {
       <button onClick={() => addNode("button")}>Buton Ekle</button>
       <button onClick={() => addNode("text")}>Metin Ekle</button>
       <button onClick={() => addNode("input")}>Input Ekle</button>
+      <HeadingMenu />
       <hr style={{ margin: '12px 0' }} />
 
       <button onClick={deleteNode} disabled={!canDelete}>

@@ -1,6 +1,6 @@
 // src/components/canvas/RenderNode.tsx
 import React from 'react';
-import { UINode } from '../../types/builder';
+import { NODE_REGISTRY, UINode } from '../../types/builder';
 import { parseStyles } from '../../utils/styleParser';
 import { useBuilderStore } from '../../store/useBuilderStore';
 
@@ -79,9 +79,10 @@ export const RenderNode = ({ node }: { node: UINode }) => {
     );
   }
 
-  if(node.type === "text") {
+  if(node.type === "text" || node.type === 'h1' || node.type === 'h2' || node.type === 'h3') {
+    const Tag = NODE_REGISTRY[node.type].tag;
     return (
-      <span
+      <Tag
         {...dndHandlers}
         style={{
           ...parseStyles(node.props || {}),
@@ -91,7 +92,7 @@ export const RenderNode = ({ node }: { node: UINode }) => {
         }}
       >
         {node.props?.text}
-      </span>  
+      </Tag>    
     );
   }
 

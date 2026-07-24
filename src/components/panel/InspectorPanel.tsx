@@ -10,6 +10,7 @@ type FieldDef = {
   options?: readonly string[];
   only?: readonly NodeType[];
 }
+const TEXT_TYPES: NodeType[] = ['button', 'text', 'input', 'h1', 'h2', 'h3']
 const FIELDS: readonly FieldDef[] = [
   { key: 'width',           label: 'Genislik(px)',    type: 'number' },
   { key: 'height',          label: 'Yukseklik (px)',  type: 'number' },
@@ -19,14 +20,15 @@ const FIELDS: readonly FieldDef[] = [
   { key: 'backgroundColor', label: 'Arka Plan',       type: 'color'  },
   { key: 'display',         label: 'Display',         type: 'select', options: ['block', 'flex'], only: ['container'] },
   { key: 'flexDirection',   label: 'Yon',  type: 'select', options: ['row', 'column'], only: ['container'] },
-  { key: 'justifyContent',  label: 'Yatay Hizala', type: 'select', options: ['flex-start', 'center', 'flex-end', 'space-between'], only: ['container'] },
-  { key: 'alignItems',      label: 'Dikey Hizala',     type: 'select', options:['flex-start', 'center', 'flex-end'], only: ['container'] },
+  { key: 'justifyContent',  label: 'Yatay Hizala',    type: 'select', options: ['flex-start', 'center', 'flex-end', 'space-between'], only: ['container'] },
+  { key: 'alignItems',      label: 'Dikey Hizala',    type: 'select', options:['flex-start', 'center', 'flex-end'], only: ['container'] },
   { key: 'gap',             label: 'Gap',             type: 'number', only: ['container'] },
-  { key: 'flexShrink',      label: 'Buzulme (shrink)', type: 'select', options: ['0', '1']},
-  { key: 'overflow', label: 'Tasma(overflow)', type: 'select', options: ['visible', 'hidden', 'auto', 'scroll'], only: ['container']},
-  { key: 'text',            label: 'Metin',           type: 'text', only: ['button', 'text', 'input']  },
-  { key: 'color',           label: 'Yazı Rengi',      type: 'color', only: ['button', 'text', 'input'] },
-  { key: 'fontSize',        label: 'Yazı Boyutu',     type: 'number', only: ['button', 'text', 'input']},
+  { key: 'flexShrink',      label: 'Buzulme (shrink)',type: 'select', options: ['0', '1']},
+  { key: 'overflow',        label: 'Tasma(overflow)', type: 'select', options: ['visible', 'hidden', 'auto', 'scroll'], only: ['container']},
+  { key: 'text',            label: 'Metin',           type: 'text', only: TEXT_TYPES },
+  { key: 'color',           label: 'Yazı Rengi',      type: 'color', only: TEXT_TYPES},
+  { key: 'fontSize',        label: 'Yazı Boyutu',     type: 'number', only: TEXT_TYPES},
+  { key: 'textAlign',       label: 'Yazı Hizası',     type: 'select', options: ['left', 'center', 'right'], only: TEXT_TYPES},
 ];
 
 export const InspectorPanel = () => {

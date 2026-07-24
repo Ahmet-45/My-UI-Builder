@@ -7,7 +7,7 @@ import { useState } from "react";
 import { ExportPanel } from "./components/panel/ExportPanel"
 import { useBuilderStore } from "./store/useBuilderStore";
 import { SavesPanel } from "./components/panel/SavesPanel";
-import { SaveDialog } from "./components/panel/SavesDialog";
+import { SaveDialog } from "./components/panel/SaveDialog";
 
 export default function App() {
   const [showTools, setShowTools] = useState(true);
