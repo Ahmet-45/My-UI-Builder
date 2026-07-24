@@ -2,19 +2,24 @@
 import { UINode, NodeProps, NODE_REGISTRY } from '../types/builder';
 
 const UNITLESS = new Set(['flexShrink', 'flexGrow', 'zIndex', 'opacity', 'fontWeight']);
-const NON_STYLE = new Set(['text']);
+const NON_STYLE = new Set(['text', 'widthUnit', 'heightUnit']);
 
 function parsePropsToStyle(props: NodeProps): string {
   const styles: string[] = [];
   for (const [key, value] of Object.entries(props)) {
     if(NON_STYLE.has(key)) continue;
-    if (value !== undefined && value !== null) {
-      const cssKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
-      if (typeof value === 'number' && !UNITLESS.has(key)) {
-        styles.push(`${cssKey}: ${value}px;`);
-      } else {
-        styles.push(`${cssKey}: ${value};`);
-      }
+    if(value === undefined || value === null) continue;
+    
+    const cssKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+
+    if (key === 'width' && typeof value === 'number') {
+      styles.push(`width: ${value}${props.widthUnit ?? 'px'};`);
+    } else if (key === 'height' && typeof value === 'number') {
+      styles.push(`height: ${value}${props.heightUnit ?? 'px'};`);
+    } else if (typeof value === 'number' && !UNITLESS.has(key)) {
+      styles.push(`${cssKey}: ${value}px;`);
+    } else {
+      styles.push(`${cssKey}: ${value};`);
     }
   }
   return styles.join(' ');

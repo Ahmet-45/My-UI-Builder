@@ -2,6 +2,7 @@
 import { useBuilderStore } from "../../store/useBuilderStore";
 import { NodeProps, NodeType } from "../../types/builder";
 import { findNodeById } from "../../utils/treeHelpers";
+import { UnitSelect } from "../ui/UnitSelect";
 
 type FieldDef = {
   key: keyof NodeProps;
@@ -9,11 +10,13 @@ type FieldDef = {
   type: 'number' | 'color' | 'text' | 'select';
   options?: readonly string[];
   only?: readonly NodeType[];
+  unitKey?: keyof NodeProps;
+  unitOptions?: readonly string[];
 }
 const TEXT_TYPES: NodeType[] = ['button', 'text', 'input', 'h1', 'h2', 'h3']
 const FIELDS: readonly FieldDef[] = [
-  { key: 'width',           label: 'Genislik(px)',    type: 'number' },
-  { key: 'height',          label: 'Yukseklik (px)',  type: 'number' },
+  { key: 'width',           label: 'Genislik(px)',    type: 'number', unitKey: 'widthUnit', unitOptions: ['px', '%', 'vw'] },
+  { key: 'height',          label: 'Yukseklik (px)',  type: 'number', unitKey: 'heightUnit', unitOptions: ['px', '%', 'vh'] },
   { key: 'padding',         label: 'Ic Bosluk (px)',  type: 'number' },
   { key: 'margin',          label: 'Dis Bosluk (px)', type: 'number' },
   { key: 'borderRadius',    label: 'Kose Yuvarlak',   type: 'number' },
@@ -29,6 +32,7 @@ const FIELDS: readonly FieldDef[] = [
   { key: 'color',           label: 'Yazı Rengi',      type: 'color', only: TEXT_TYPES},
   { key: 'fontSize',        label: 'Yazı Boyutu',     type: 'number', only: TEXT_TYPES},
   { key: 'textAlign',       label: 'Yazı Hizası',     type: 'select', options: ['left', 'center', 'right'], only: TEXT_TYPES},
+  
 ];
 
 export const InspectorPanel = () => {
@@ -41,7 +45,7 @@ export const InspectorPanel = () => {
   return <div className="p-4">Lutfen tuvalden bir eleman secin</div>;
   }
 
-  return (
+  return (  
     <div style={{padding: '16px', borderLeft: '1px solid #ddd', backgroundColor: '#f9f9f9', height: '100vh'}}>
       <h3 style={{fontWeight: 'bold,', marginBottom: 16}}>Özellikler (Props)</h3>
       { FIELDS
@@ -61,22 +65,32 @@ export const InspectorPanel = () => {
                 ))}
               </select>  
             ) : (
-              <input 
-                type={field.type}
-                style={{ border: '1px solid #ccc', padding: 4, width: '100%', boxSizing: 'border-box'}}
-                value={selectedNode.props?.[field.key] ?? (field.type === 'color' ? '#ffffff' : '')}
-                onChange={(e) => {
-                  const raw = e.target.value;                  
-                  updateNode({
-                    [field.key]: field.type === 'number' 
-                    ? (raw === '' ? undefined : parseInt(raw))
-                    : raw
-                  });
-                }}
-              />  
-            )} 
+              <div style={{ display: 'flex', gap: 4 }}>
+                <input
+                  type={field.type}
+                  style={{ flex: 1, border: '1px solid #ccc', padding: 4, boxSizing: 'border-box' }}
+                  value={selectedNode.props?.[field.key] ?? (field.type === 'color' ? '#ffffff' : '')}
+                  onChange={(e) => {
+                    const raw = e.target.value;
+                    updateNode({
+                      [field.key]: field.type === 'number'
+                        ? (raw === '' ? undefined : parseInt(raw))
+                        : raw
+                    });
+                  }}
+                />
+
+                {field.unitKey && field.unitOptions && (
+                  <UnitSelect
+                    value={String(selectedNode.props?.[field.unitKey] ?? field.unitOptions[0])}
+                    options={field.unitOptions}
+                    onChange={(unit) => updateNode({ [field.unitKey!]: unit })}
+                  />
+                )}
+              </div>
+            )}
           </div>
-      ))}      
+        ))}
     </div>
   );
 };

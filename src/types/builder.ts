@@ -31,7 +31,9 @@ export type NodeType = keyof typeof NODE_REGISTRY;
 export interface NodeProps {
   backgroundColor?: string;
   width?: number;
+  widthUnit?: 'px' | '%' | 'vw';
   height?: number;
+  heightUnit?: 'px' | '%' | 'vh';
   borderRadius?: number;
   padding?: number;
   margin?: number;
