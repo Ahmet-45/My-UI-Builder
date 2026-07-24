@@ -13,15 +13,15 @@ export const NODE_REGISTRY = {
     tag: 'input', acceptsChildren: false, selfClosing: true, defaultProps: { text: 'Buraya yazin', height: 40 }, 
   },
   h1: {
-    tag: 'h1', accepstChildren: false, selfClosing: false, defaultProps: 
+    tag: 'h1', acceptsChildren: false, selfClosing: false, defaultProps: 
     { text: 'Başlık 1', fontSize: 28}
   },
   h2: {
-    tag: 'h1', accepstChildren: false, selfClosing: false, defaultProps: 
+    tag: 'h1', acceptsChildren: false, selfClosing: false, defaultProps: 
     { text: 'Başlık 2', fontSize: 22}
   },
   h3: {
-    tag: 'h1', accepstChildren: false, selfClosing: false, defaultProps: 
+    tag: 'h1', acceptsChildren: false, selfClosing: false, defaultProps: 
     { text: 'Başlık 3', fontSize: 18}
   },
 } as const;
@@ -48,6 +48,8 @@ export interface NodeProps {
   color?: string;
   fontSize?: number;
   textAlign?: 'left' | 'center' | 'right';
+  overflowWrap?: 'normal' | 'break-word';
+  wordBreak?: 'normal' | 'break-all';
 }
 
 export interface UINode {

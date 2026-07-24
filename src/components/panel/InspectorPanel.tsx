@@ -32,7 +32,8 @@ const FIELDS: readonly FieldDef[] = [
   { key: 'color',           label: 'Yazı Rengi',      type: 'color', only: TEXT_TYPES},
   { key: 'fontSize',        label: 'Yazı Boyutu',     type: 'number', only: TEXT_TYPES},
   { key: 'textAlign',       label: 'Yazı Hizası',     type: 'select', options: ['left', 'center', 'right'], only: TEXT_TYPES},
-  
+  { key: 'overflowWrap',    label: 'Kelime Kaydır',   type: 'select', options: ['normal', 'break-word'], only: TEXT_TYPES},
+  { key: 'wordBreak',       label: 'Kelime Kır',      type: 'select', options: ['normal', 'break-all'],  only: TEXT_TYPES},
 ];
 
 export const InspectorPanel = () => {
